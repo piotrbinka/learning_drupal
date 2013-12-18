@@ -1,0 +1,4 @@
+name = Words
+description = My testing module.
+core = 7.x
+php = 5.2
