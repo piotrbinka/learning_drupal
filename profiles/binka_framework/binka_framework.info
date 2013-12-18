@@ -26,6 +26,7 @@ dependencies[] = rdf
 dependencies[] = devel
 dependencies[] = module_filter
 dependencies[] = admin_menu
+dependencies[] = zen
 
 ; Information added by  packaging script on 2013-11-20
 version = "7.24"

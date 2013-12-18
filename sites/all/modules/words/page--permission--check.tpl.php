@@ -1,2 +1,2 @@
-Moje kokoszki!!!
+Moje permissiony!!!
 <?php print $myvar ?>

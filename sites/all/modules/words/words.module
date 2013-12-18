@@ -8,13 +8,13 @@ function words_menu(){
   $items = array();
 
   $items['words/list'] = array(
-    'page callback' => 'words_list_words',
+    'page callback' => 'words_default_page_cb',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM
   );
   
-   $items['words/permcheck'] = array(
-    'page callback' => 'words_permission_check',
+  $items['words/permcheck'] = array(
+    'page callback' => 'words_default_page_cb',
     'access callback' => TRUE,
     'type' => MENU_NORMAL_ITEM
   );
@@ -28,17 +28,28 @@ function words_list_words(){
   return theme_render_template($modulepath.'/page--list--words.tpl.php', $variables);
 }
 
+function words_default_page_cb(){
+    return array();
+}
+
+
 function words_permission_check(){
   $variables = array('myvar' => 'trelemorele');
   $modulepath = drupal_get_path('module', 'words');
   return theme_render_template($modulepath.'/page--permission--check.tpl.php', $variables);
 }
 
+function words_sidebar_data(){
+  $variables = array('myvar' => 'kokoszki');
+  $modulepath = drupal_get_path('module', 'words');
+  return theme_render_template($modulepath.'/page--permission--check.tpl.php', $variables);
+}
 
 /**
  * Implements hook_block_info().
  */
 function words_block_info() {
+  // This adds my custom block to the block list
   $blocks = array();
   $blocks['my_block'] = array(
     'info' => t('My Custom Block'),
@@ -48,6 +59,9 @@ function words_block_info() {
     'info' => t('My Test Block'),
   );   
   
+  $blocks['my_sidebar_block'] = array(
+    'info' => t('My Sidebar Block'),
+  );  
   return $blocks;
 }
 
@@ -57,14 +71,20 @@ function words_block_view($delta = '') {
   switch($delta){
     case 'my_block':  
       if(user_access('access content')){ //good idea to check user perms here
-         $block['subject'] = t('MYblock_TITLE');
+         //$block['subject'] = t('MYblock_TITLE');
          $block['content'] = words_list_words();
       }
       break;
     case 'my_test_block':  
       if(user_access('access content')){ //good idea to check user perms here
-         $block['subject'] = t('My block data');
+         //$block['subject'] = t('My block data');
          $block['content'] = words_permission_check();
+      }
+      break;
+    case 'my_sidebar_block':  
+      if(user_access('access content')){ //good idea to check user perms here
+         //$block['subject'] = t('My block data');
+         $block['content'] = words_sidebar_data();
       }
       break;
   }
